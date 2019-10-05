@@ -18,34 +18,33 @@ package cmd
 import (
 	"fmt"
 
+	"./network"
+
 	"github.com/spf13/cobra"
 )
+
+var scheduleYear string
 
 // scheduleCmd represents the schedule command
 var scheduleCmd = &cobra.Command{
 	Use:   "schedule",
-	Short: "A brief description of your command",
-	Long: `A longer description that spans multiple lines and likely contains examples
-and usage of using your command. For example:
+	Short: "Get the f1 schedule of the given year",
+	Long: `Get the f1 schedule of the given year. For example:
 
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
+go run main.go schedule 2018, will show the f1 schedule of 2018.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("schedule called")
+		resp, err := network.MakeGetRequest("http://ergast.com/api/f1/" + scheduleYear)
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
+		fmt.Println(resp)
 	},
 }
 
 func init() {
 	rootCmd.AddCommand(scheduleCmd)
 
-	// Here you will define your flags and configuration settings.
-
-	// Cobra supports Persistent Flags which will work for this command
-	// and all subcommands, e.g.:
-	// scheduleCmd.PersistentFlags().String("foo", "", "A help for foo")
-
-	// Cobra supports local flags which will only run when this command
-	// is called directly, e.g.:
-	// scheduleCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+	scheduleCmd.Flags().StringVarP(&scheduleYear, "year", "y", "", "Year (required)")
+	scheduleCmd.MarkFlagRequired("year")
 }
