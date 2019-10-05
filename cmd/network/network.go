@@ -7,12 +7,12 @@ import (
 )
 
 // MakeGetRequest makes a HTTP GET request taking in the URL as the parameter.
-// The response body is returned as a string.
-func MakeGetRequest(url string) (string, error) {
+// The response body is returned as a byte slice.
+func MakeGetRequest(url string) ([]byte, error) {
 	resp, err := http.Get(url)
 	if err != nil {
 		log.Fatalln(err)
-		return "", err
+		return []byte{}, err
 	}
 
 	defer resp.Body.Close()
@@ -20,8 +20,8 @@ func MakeGetRequest(url string) (string, error) {
 	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		log.Fatalln(err)
-		return "", err
+		return []byte{}, err
 	}
 
-	return string(body), nil
+	return body, nil
 }

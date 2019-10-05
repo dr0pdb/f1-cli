@@ -16,9 +16,10 @@ limitations under the License.
 package cmd
 
 import (
-	"encoding/json"
+	"encoding/xml"
 	"fmt"
 
+	"github.com/srv-twry/f1-cli/cmd/models"
 	"github.com/srv-twry/f1-cli/cmd/network"
 
 	"github.com/spf13/cobra"
@@ -34,8 +35,7 @@ var scheduleCmd = &cobra.Command{
 
 go run main.go schedule 2018, will show the f1 schedule of 2018.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		url := "http://ergast.com/api/f1/" + scheduleYear + ".json"
-		fmt.Println("Calling", url)
+		url := "http://ergast.com/api/f1/" + scheduleYear
 
 		resp, err := network.MakeGetRequest(url)
 		if err != nil {
@@ -43,11 +43,17 @@ go run main.go schedule 2018, will show the f1 schedule of 2018.`,
 			return
 		}
 
-		fmt.Println(resp)
-		var result map[string]interface{}
-		json.Unmarshal([]byte(resp), &result)
-		races := result["Races"]
-		fmt.Println(races)
+		data := models.Mrdata{}
+		err = xml.Unmarshal(resp, &data)
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
+
+		r := data.Races
+		for _, race := range r {
+			fmt.Println(race.Round, race.RaceName, race.Circuit, race.Date)
+		}
 	},
 }
 
