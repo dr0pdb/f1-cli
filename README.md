@@ -1,6 +1,6 @@
 # F1-CLI
 
-<img src="https://github.com/srv-twry/f1-cli/blob/master/images/title.jpeg" width="100%" height="500px"/>
+<img src="https://github.com/srv-twry/f1-cli/blob/master/readme-res/title.jpeg" width="100%" height="500px"/>
 
 A CLI for techies who love Formula 1. The tool is written in **Go** and makes use of the following tools and APIs: 
 1. [Cobra](https://github.com/spf13/cobra)
@@ -8,7 +8,7 @@ A CLI for techies who love Formula 1. The tool is written in **Go** and makes us
 3. [Viper](https://github.com/spf13/viper)
 
 ## Demo
-TODO
+![](readme-res/demo.gif)
 
 ## Features
 - Check the F1 schedule of an year: `schedule -y {year}`. Eg: `schedule -y 2018` will print the complete schedule of 2018 Formula 1 season.
