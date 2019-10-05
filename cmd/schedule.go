@@ -16,6 +16,7 @@ limitations under the License.
 package cmd
 
 import (
+	"encoding/json"
 	"fmt"
 
 	"github.com/srv-twry/f1-cli/cmd/network"
@@ -33,12 +34,20 @@ var scheduleCmd = &cobra.Command{
 
 go run main.go schedule 2018, will show the f1 schedule of 2018.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		resp, err := network.MakeGetRequest("http://ergast.com/api/f1/" + scheduleYear)
+		url := "http://ergast.com/api/f1/" + scheduleYear + ".json"
+		fmt.Println("Calling", url)
+
+		resp, err := network.MakeGetRequest(url)
 		if err != nil {
 			fmt.Println(err)
 			return
 		}
+
 		fmt.Println(resp)
+		var result map[string]interface{}
+		json.Unmarshal([]byte(resp), &result)
+		races := result["Races"]
+		fmt.Println(races)
 	},
 }
 
