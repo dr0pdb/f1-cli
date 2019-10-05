@@ -18,7 +18,7 @@ package cmd
 import (
 	"fmt"
 
-	"./network"
+	"github.com/srv-twry/f1-cli/cmd/network"
 
 	"github.com/spf13/cobra"
 )
