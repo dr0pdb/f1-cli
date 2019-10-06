@@ -26,6 +26,7 @@ import (
 )
 
 var scheduleYear string
+var roundNumber string
 
 // scheduleCmd represents the schedule command
 var scheduleCmd = &cobra.Command{
@@ -36,6 +37,10 @@ var scheduleCmd = &cobra.Command{
 go run main.go schedule 2018, will show the f1 schedule of 2018.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		url := "http://ergast.com/api/f1/" + scheduleYear
+
+		if roundNumber != "" {
+			url += "/" + roundNumber
+		}
 
 		resp, err := network.MakeGetRequest(url)
 		if err != nil {
@@ -62,4 +67,6 @@ func init() {
 
 	scheduleCmd.Flags().StringVarP(&scheduleYear, "year", "y", "", "Year (required)")
 	scheduleCmd.MarkFlagRequired("year")
+
+	scheduleCmd.Flags().StringVarP(&roundNumber, "round", "r", "", "Round (optional)")
 }

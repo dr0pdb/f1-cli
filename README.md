@@ -12,6 +12,7 @@ A CLI for techies who love Formula 1. The tool is written in **Go** and makes us
 
 ## Features
 - Check the F1 schedule of an year: `schedule -y {year}`. Eg: `schedule -y 2018` will print the complete schedule of 2018 Formula 1 season.
+- Check the F1 schedule of a particular race of an year: `schedule -y {year} -r {round_number}`. Eg: `schedule -y 2018 -r 4` will print the schedule of 2018 Azerbaijan Grand Prix. 
 
 ## Development
 This project uses [go modules](https://blog.golang.org/using-go-modules) and hence it's not necessary to download the project in `$GOPATH`.
@@ -24,7 +25,7 @@ In order to contribute to this project please go through the following steps:
 
 ## Future Plans
 - [x] Schedule of a f1 season.
-- [ ] Schedule of a particular race of a year. 
+- [x] Schedule of a particular race of a year. 
 - [ ] Race results.
 - [ ] Drivers Standings
 - [ ] Constructors Standings
