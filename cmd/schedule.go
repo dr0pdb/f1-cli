@@ -18,6 +18,8 @@ package cmd
 import (
 	"encoding/xml"
 	"fmt"
+	"strconv"
+	"time"
 
 	"github.com/srv-twry/f1-cli/cmd/models"
 	"github.com/srv-twry/f1-cli/cmd/network"
@@ -63,10 +65,10 @@ go run main.go schedule 2018, will show the f1 schedule of 2018.`,
 }
 
 func init() {
+	currentYear, _, _ := time.Now().Date()
 	rootCmd.AddCommand(scheduleCmd)
 
-	scheduleCmd.Flags().StringVarP(&scheduleYear, "year", "y", "", "Year (required)")
-	scheduleCmd.MarkFlagRequired("year")
+	scheduleCmd.Flags().StringVarP(&scheduleYear, "year", "y", strconv.Itoa(currentYear), "Year (optional)")
 
 	scheduleCmd.Flags().StringVarP(&roundNumber, "round", "r", "", "Round (optional)")
 }
