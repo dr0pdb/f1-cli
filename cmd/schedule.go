@@ -27,6 +27,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
+var currentYear = strconv.Itoa(time.Now().Year())
 var scheduleYear string
 var roundNumber string
 
@@ -65,10 +66,9 @@ go run main.go schedule 2018, will show the f1 schedule of 2018.`,
 }
 
 func init() {
-	currentYear, _, _ := time.Now().Date()
 	rootCmd.AddCommand(scheduleCmd)
 
-	scheduleCmd.Flags().StringVarP(&scheduleYear, "year", "y", strconv.Itoa(currentYear), "Year (optional)")
+	scheduleCmd.Flags().StringVarP(&scheduleYear, "year", "y", currentYear, "Year (optional)")
 
 	scheduleCmd.Flags().StringVarP(&roundNumber, "round", "r", "", "Round (optional)")
 }
