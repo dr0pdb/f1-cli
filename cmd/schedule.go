@@ -18,6 +18,8 @@ package cmd
 import (
 	"encoding/xml"
 	"fmt"
+	"strconv"
+	"time"
 
 	"github.com/srv-twry/f1-cli/cmd/models"
 	"github.com/srv-twry/f1-cli/cmd/network"
@@ -25,6 +27,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
+var currentYear = strconv.Itoa(time.Now().Year())
 var scheduleYear string
 var roundNumber string
 
@@ -65,8 +68,7 @@ go run main.go schedule 2018, will show the f1 schedule of 2018.`,
 func init() {
 	rootCmd.AddCommand(scheduleCmd)
 
-	scheduleCmd.Flags().StringVarP(&scheduleYear, "year", "y", "", "Year (required)")
-	scheduleCmd.MarkFlagRequired("year")
+	scheduleCmd.Flags().StringVarP(&scheduleYear, "year", "y", currentYear, "Year (optional)")
 
 	scheduleCmd.Flags().StringVarP(&roundNumber, "round", "r", "", "Round (optional)")
 }
